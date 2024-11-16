@@ -10,6 +10,6 @@ RUN apt-get update && \
 RUN dos2unix /app/install.sh
 RUN chmod +x /app/install.sh
 
-VOLUME ["/app/data"]
+VOLUME ["/root"]
 
 CMD ["./install.sh"]
