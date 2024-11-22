@@ -1,0 +1,24 @@
+# docker-compose.yml
+version: "3.8"
+
+services:
+  xui:
+    build: .
+    volumes:
+      - xui_mysql:/var/lib/mysql
+      - xui_home:/opt/xui
+    ports:
+      - "80:80" # HTTP port
+      - "443:443" # HTTPS port
+      - "3306:3306" # MySQL port
+    restart: unless-stopped
+    networks:
+      - xui_network
+
+volumes:
+  xui_mysql:
+  xui_home:
+
+networks:
+  xui_network:
+    driver: bridge
