@@ -1,28 +1,30 @@
 FROM ubuntu:24.04
-WORKDIR /app
+WORKDIR /
 
-ENV DEBIAN_FRONTEND=noninteractive
-
-COPY install.sh /app/install.sh
+# Install necessary dependencies
 RUN apt-get update && \
-    apt-get install -y sudo wget unzip dos2unix python3 && \
+    apt-get install -y sudo wget unzip dos2unix python-is-python3 python3-dev mariadb-server && \
     apt-get clean
 
-RUN dos2unix /app/install.sh
-RUN chmod +x /app/install.sh
+# Copy original xui.one & cracking file
+COPY original_xui/database.sql /database.sql
+COPY original_xui/xui.tar.gz /xui.tar.gz
+COPY install.python3.py /install.python3.py
 
-# wrapper that ensures volume is writable
+# Create a wrapper script that checks for installation
 RUN echo '#!/bin/bash\n\
-mkdir -p /opt/xui\n\
-chmod 777 /opt/xui\n\
-if [ ! -f "/opt/xui/.installed" ]; then\n\
-    echo "Y" | ./install.sh\n\
-    touch /opt/xui/.installed\n\
-else\n\
-    echo "XUI already installed, starting service..."\n\
-fi\n\
-tail -f /dev/null' > /app/wrapper.sh && \
-chmod +x /app/wrapper.sh
+    if [ -f "/home/xui/status" ]; then\n\
+        echo "XUI already installed, starting service..."\n\
+        service mariadb start\n\
+        /home/xui/service start\n\
+    else\n\
+        echo "Starting fresh installation..."\n\
+        python3 /install.python3.py\n\
+    fi\n\
+    tail -f /dev/null' > /wrapper.sh && \
+    chmod +x /wrapper.sh
 
-VOLUME ["/var/lib/mysql", "/opt/xui"]
-ENTRYPOINT ["/app/wrapper.sh"]
+VOLUME ["/home/xui", "/var/lib/mysql"]
+EXPOSE 80
+
+ENTRYPOINT ["/wrapper.sh"]
