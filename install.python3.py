@@ -40,7 +40,16 @@ def getIP():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(("8.8.8.8", 80))
     return s.getsockname()[0]
-
+#def getIP():
+#    try:
+        # Try getting container IP first
+       # with open('/etc/hosts') as f:
+           # for line in f:
+               # if 'eth0' in line:
+                   # return line.split()[0]
+        #return "127.0.0.1"
+    #except:
+        #return "127.0.0.1"
 def printc(rText, rColour=col.OKBLUE, rPadding=0):
     rLeft = int(30-(len(rText)/2))
     rRight = (60-rLeft-len(rText))
@@ -56,31 +65,12 @@ if __name__ == "__main__":
     # START                                          #
     ##################################################
     
-    #try: rVersion = os.popen('lsb_release -sr').read().strip()
-    #except: rVersion = None
-    #if not rVersion in rVersions:
-    #    printc("Unsupported Operating System")
-    #    sys.exit(1)
-    
-    if not os.path.exists("./xui.tar.gz") and not os.path.exists("./xui_trial.tar.gz"):
-        print("Fatal Error: xui.tar.gz is missing. Please download it from XUI billing panel.")
-        sys.exit(1)
-    
     printc("XUI", col.OKGREEN, 2)
-    rHost = "127.0.0.1" ; rServerID = 1 ; rUsername = generate() ; rPassword = generate()
-    rDatabase = "xui"
-    rPort = 3306
-
-    if os.path.exists("/home/xui/"):
-        printc("XUI Directory Exists!")
-        while True:
-            rAnswer = input("Continue and overwrite? (Y / N) : ")
-            if rAnswer.upper() in ["Y", "N"]: break
-        if rAnswer == "N": sys.exit(1)
-   
+    
     ##################################################
     # UPGRADE                                        #
     ##################################################
+    
     
     printc("Preparing Installation")
     for rFile in ["/var/lib/dpkg/lock-frontend", "/var/cache/apt/archives/lock", "/var/lib/dpkg/lock", "/var/lib/apt/lists/lock"]:
@@ -161,9 +151,14 @@ if __name__ == "__main__":
             rRet = os.system("mysql -u root%s -e \"SELECT VERSION();\"" % rExtra)
             if rRet == 0: break
             else: printc("Invalid password! Please try again.")
+    
     os.system('sudo mysql -u root%s -e "DROP DATABASE IF EXISTS xui; CREATE DATABASE IF NOT EXISTS xui;"  >/dev/null 2>&1' % rExtra)
     os.system('sudo mysql -u root%s -e "DROP DATABASE IF EXISTS xui_migrate; CREATE DATABASE IF NOT EXISTS xui_migrate;"  >/dev/null 2>&1' % rExtra)
     os.system('sudo mysql -u root%s xui < "/home/xui/bin/install/database.sql"  >/dev/null 2>&1' % rExtra)
+    # Define rUsername and rPassword
+    rUsername = "xui_user"
+    rPassword = "xui_password"
+    # Create the user and grant privileges
     os.system('sudo mysql -u root%s -e "CREATE USER \'%s\'@\'localhost\' IDENTIFIED BY \'%s\';"  >/dev/null 2>&1' % (rExtra, rUsername, rPassword))
     os.system('sudo mysql -u root%s -e "GRANT ALL PRIVILEGES ON xui.* TO \'%s\'@\'localhost\';"  >/dev/null 2>&1' % (rExtra, rUsername))
     os.system('sudo mysql -u root%s -e "GRANT ALL PRIVILEGES ON xui_migrate.* TO \'%s\'@\'localhost\';"  >/dev/null 2>&1' % (rExtra, rUsername))
@@ -258,6 +253,7 @@ if __name__ == "__main__":
     os.system('sudo sed -i "s/^license.*/license     =   \"cracked\"/g" /home/xui/config/config.ini >/dev/null 2>&1')
     os.system("sudo systemctl start xuione >/dev/null 2>&1")
     os.system("sudo /home/xui/bin/php/bin/php /home/xui/includes/cli/startup.php >/dev/null 2>&1")
+    os.system("touch /home/xui/status")
     time.sleep(60)
     
     rFile = io.open(rPath + "/credentials.txt", "w", encoding="utf-8")
