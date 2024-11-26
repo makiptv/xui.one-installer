@@ -2,47 +2,87 @@
 
 A containerized setup for XUI One using Docker.
 
-# The container will:
+<!-- Description -->
 
-1. Use Ubuntu 24.04 as base image
-2. Install required dependencies
-3. Run the XUI One installer automatically
-4. Create persistent volumes for MySQL and XUI data
+This repository provides a fully automated and containerized setup for XUI.one, a web-based user interface for managing various services. The repository includes all necessary scripts, configurations, and Docker files to deploy XUI.one seamlessly.
 
-# Configuration
+## Purpose
 
-The service exposes the following ports:
+1. **Automated Setup:** Automatically installs and configures `XUI.one 1.5.12` on an `Ubuntu 24.04` base image.
+2. **Dependency Management:** Installs all required dependencies for XUI.one, including MySQL and other necessary packages.
+3. **Persistent Storage:** Creates persistent Docker volumes for MySQL and XUI data to ensure data is not lost between container restarts.
+4. **Ease of Use:** Simplifies the deployment process, making it easy to set up and manage XUI.one with minimal manual intervention.
 
-Port 80: HTTP
-Port 443: HTTPS
-Port 3306: MySQL
+<!-- Architecture -->
+
+## Architecture
+
+The XUI.ONE Installer follows a containerized architecture using Docker and Docker Compose to manage the setup and deployment of XUI.ONE. Below is a high-level overview of the architecture:
+
+![arch](assets/arch.png)
+
+## Getting Started
+
+To get started with the XUI.ONE Installer, follow these steps:
+
+### Prerequisites:
+
+Ensure you have the following installed on your system:
+
+- [Docker](https://docs.docker.com/desktop/setup/install/windows-install/)
+
+### Installation:
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/Itz-Agasta/xui.one-installer.git
+   cd xui.one-installer
+   ```
+
+````
+2. **Build and Run the Docker Containers**
+ ```bash
+ docker-compose up -d
+````
+
+3. **Access XUI.ONE:** Open your web browser and navigate to the provided url to access XUI.ONE.
+
+   ![setup](assets/setup_link.png)
+
+### Ubuntu installation:
+
+If you just want to install XUI.ONE on Your Ubuntu desktop, you can use the following command in your terminal:
+
+```bash
+wget https://raw.githubusercontent.com/Itz-Agasta/xui.one-installer/main/install.sh -O install.sh && chmod +x install.sh && ./install.sh
+```
+
+> **Supported Ubuntu versions:**
+>
+> ✅ Ubuntu 18</br>
+> ✅ Ubuntu 20</br>
+> ✅ Ubuntu 22</br>
+> ✅ Ubuntu 24</br>
+
+## Configuration
 
 Data is persisted in two Docker volumes:
 
-xui_mysql: MySQL database files
-xui_home: XUI installation files
+- **xui_mysql:** MySQL database files
+- **xui_home:** XUI installation files
 
-# Note
+## Troubleshooting
 
-1. The container uses a wrapper script to handle first-time
+If you encounter any issues, refer to the logs:
 
 ```bash
-#!/bin/bash                           # Defines bash shell interpreter
-mkdir -p /opt/xui                     # Creates XUI installation directory
-chmod 777 /opt/xui                    # Sets full permissions for the directory
-
-# Installation Check and Logic
-if [ ! -f "/opt/xui/.installed" ]; then    # Checks if installation flag exists
-    echo "Y" | ./install.sh                # Runs installer with auto-yes
-    touch /opt/xui/.installed              # Creates installation flag
-else
-    echo "XUI already installed, starting service..."  # Skip if already installed
-fi
-
-tail -f /dev/null                     # Keeps container running
+docker-compose logs
 ```
 
-2. installation and service startup
-3. Installation status is tracked via /opt/xui/.installed flag
-4. Services restart automatically unless explicitly stopped
-5. check https://github.com/amidevous/xui.one/blob/master/install.python3 .. this file will be used for applying crack.
+For further assistance, you can [Report Bug](https://github.com/Itz-Agasta/xui.one-installer/issues) or [Request Feature](https://github.com/Itz-Agasta/xui.one-installer/issues).
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for more details.
+
+Feel free to Send a [Pull Request](https://github.com/Itz-Agasta/xui.one-installer/pulls) if you have improvements or fixes.
