@@ -1,6 +1,25 @@
-# XUI.One Docker Installation
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/roshanlam/ReadMeTemplate/">
+    <img src="./assets//logo.png" alt="Logo" width="250" height="200">
+  </a>
 
-A containerized setup for XUI One using Docker.
+  <h3 align="center">XUI.ONE Installer</h3>
+
+  <p align="center">
+    A containerized setup for XUI.one using Docker!
+    <br />
+    <br />
+    <a href="https://github.com/Itz-Agasta/xui.one-installer">View Demo</a>
+    ·
+    <a href="https://github.com/Itz-Agasta/xui.one-installer/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/Itz-Agasta/xui.one-installer/issues">Request Feature</a>
+    ·
+    <a href="https://github.com/Itz-Agasta/xui.one-installer/pulls">Send a Pull Request</a>
+  </p>
+</p>
 
 <!-- Description -->
 
@@ -34,16 +53,17 @@ Ensure you have the following installed on your system:
 ### Installation:
 
 1. **Clone the Repository**
+
    ```bash
    git clone https://github.com/Itz-Agasta/xui.one-installer.git
    cd xui.one-installer
    ```
 
-````
 2. **Build and Run the Docker Containers**
- ```bash
- docker-compose up -d
-````
+
+   ```bash
+   docker-compose up -d
+   ```
 
 3. **Access XUI.ONE:** Open your web browser and navigate to the provided url to access XUI.ONE.
 
