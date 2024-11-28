@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/roshanlam/ReadMeTemplate/">
+  <a href="https://github.com/Itz-Agasta/xui.one-installer">
     <img src="./assets//logo.png" alt="Logo" width="250" height="200">
   </a>
 
@@ -103,6 +103,6 @@ For further assistance, you can [Report Bug](https://github.com/Itz-Agasta/xui.o
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for more details.
+This project is licensed under the [MIT License](https://github.com/Itz-Agasta/xui.one-installer/blob/main/License). See the LICENSE file for more details.
 
 Feel free to Send a [Pull Request](https://github.com/Itz-Agasta/xui.one-installer/pulls) if you have improvements or fixes.
