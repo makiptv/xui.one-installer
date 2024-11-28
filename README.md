@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/roshanlam/ReadMeTemplate/">
+  <a href="https://github.com/Itz-Agasta/xui.one-installer">
     <img src="./assets//logo.png" alt="Logo" width="250" height="200">
   </a>
 
