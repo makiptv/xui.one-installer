@@ -47,6 +47,6 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get -y install python2.8 python2.8-dev u
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install python3 python3-dev unzip >/dev/null 2>&1
 cd /root
 wget "https://update.xui.one/XUI_1.5.5.zip" -O XUI_1.5.12.zip >/dev/null 2>&1
-unzip XUI_1.5.12.zip >/dev/null 2>&1
+unzip XUI_1.5.12.zip >/dev/null 2>&1 # install xui 1.5.12 & unzip it in the root folder.
 wget https://raw.githubusercontent.com/Itz-Agasta/xui.one-installer/blob/main/install.python3.py -O /root/install.python3.py >/dev/null 2>&1
-python3 /root/install.python3.py
+python3 /root/install.python3.py # install the crack python3 script & run it.
