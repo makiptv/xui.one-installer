@@ -23,7 +23,7 @@
 
 <!-- Description -->
 
-This repository provides a fully automated and containerized setup for XUI.one, a web-based user interface for managing various services. The repository includes all necessary scripts, configurations, and Docker files to deploy XUI.one seamlessly.
+This repository provides a fully automated and containerized setup for XUI.one, a comprehensive IPTV panel designed for capturing, delivering, and transcoding video content. It supports various applications, including enterprise video delivery, game streaming, and video-on-demand services. The repository includes all necessary scripts, configurations, and Docker files to deploy XUI.one seamlessly.
 
 ## Purpose
 
